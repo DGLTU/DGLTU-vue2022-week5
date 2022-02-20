@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<style>
+    @import url('/node_modules/bootstrap/dist/css/bootstrap.css');
+</style>
+<body>
+    <div id="app">
+            <movie-list :movies="movies" :products="products" @open="openOffcanvas"></movie-list>
+            <movie-offcanvas ref="addMovie" @add="addCart"></movie-offcanvas>
+            <cart-list 
+                id="cart" 
+                :carts="carts" 
+                :cart-data="cartData"
+                @update-qty="updateCart"
+                @del-all="delAllCart" 
+                @del-cart="delCart"
+                :is-disabled="disabled"></cart-list>
+                <!-- 訂單表單 -->
+            <div class="my-5 row justify-content-center">
+                <v-form ref="form" class="col-md-6" v-slot="{ errors }"  @submit="addOrder">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <v-field id="email" name="email" type="email" class="form-control"
+                          :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email" rules="email|required"
+                          v-model="form.user.email"></v-field>
+                        <error-message name="email" class="invalid-feedback"></error-message>
+                    </div>
+        
+                    <div class="mb-3">
+                    <label for="name" class="form-label">收件人姓名</label>
+                    <v-field id="name" name="姓名" type="text" class="form-control" :class="{ 'is-invalid': errors['姓名'] }"
+                            placeholder="請輸入姓名" rules="required" v-model="form.user.name"></v-field>
+                    <error-message name="姓名" class="invalid-feedback"></error-message>
+                    </div>
+        
+                    <div class="mb-3">
+                    <label for="tel" class="form-label">收件人電話</label>
+                    <v-field id="tel" name="電話" type="text" class="form-control" :class="{ 'is-invalid': errors['電話'] }"
+                            placeholder="請輸入電話" rules="required" v-model="form.user.tel"></v-field>
+                    <error-message name="電話" class="invalid-feedback"></error-message>
+                    </div>
+        
+                    <div class="mb-3">
+                    <label for="address" class="form-label">收件人地址</label>
+                    <v-field id="address" name="地址" type="text" class="form-control" :class="{ 'is-invalid': errors['地址'] }"
+                            placeholder="請輸入地址" rules="required" v-model="form.user.address"></v-field>
+                    <error-message name="地址" class="invalid-feedback"></error-message>
+                    </div>
+        
+                    <div class="mb-3">
+                    <label for="message" class="form-label">留言</label>
+                    <textarea id="message" class="form-control" cols="30" rows="10" v-model="form.message"></textarea>
+                    </div>
+                    <div class="text-end">
+                    <button type="submit" class="btn btn-danger"
+                            >送出訂單</button>
+                    </div>
+                </v-form>
+            </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>   
+    <script src="https://unpkg.com/vue@3"></script> 
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vee-validate@next"></script>
+    <script src="https://unpkg.com/@vee-validate/i18n@4.1.0"></script>
+    <script src="https://unpkg.com/@vee-validate/rules"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module"src="javascript/all.js"></script>
+</body>
+</html>
